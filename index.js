@@ -16,14 +16,17 @@ ready(function(){
   function loadXMLDoc() {
      var request = new XMLHttpRequest();
      var key = "47526fbd-ff67-40e5-9edc-ed01a7fc3dfe";
-     var url = "https://content.guardianapis.com/search?api-key="+key;
+     var url = "https://content.guardianapis.com/search?show-blocks=all&api-key="+key;
 
      request.onreadystatechange = function() {
        var obj = JSON.parse(request.response);
-       console.log(obj.response.results[0].webTitle);
+       var first = obj.response.results[0].blocks.body[0].bodyTextSummary;
+       var fullText = obj.response.results[1].blocks.body[0].bodyHtml;
+       console.log(obj.response.results[0]);
          if (request.readyState == XMLHttpRequest.DONE ) {
             if (request.status == 200) {
-                document.getElementById("news-headline").innerHTML = obj.response.results[0].webTitle;
+              var articleDiv = document.getElementById("news-headline");
+              articleDiv.innerHTML = fullText;
             }
             else if (request.status == 400) {
                alert('There was an error 400');
