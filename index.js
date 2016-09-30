@@ -27,8 +27,17 @@ ready(function(){
          if (request.readyState == XMLHttpRequest.DONE ) {
             if (request.status == 200) {
               for (i = 0; i < 10; i++) {
-                document.getElementsByTagName("a")[i].innerHTML =obj.response.results[i].webTitle;
-                document.getElementsByTagName("p")[i].innerHTML =obj.response.results[i].blocks.body[0].bodyHtml;
+
+                divList = document.getElementById("news-headline");
+              //  newItem = document.createElement("p");
+                a = document.createElement("a");
+                a.setAttribute("id", i );
+                a.setAttribute("href", i);
+                newItem.appendChild(a);
+                divList.appendChild(newItem);
+
+                document.getElementById("news-headline").innerHTML = "<a href=" + i + ">" + obj.response.results[i].webTitle + "</a><br>";
+                // document.getElementsByTagName("p")[i].innerHTML =obj.response.results[i].blocks.body[0].bodyHtml;
               }
             }
             else if (request.status == 400) {
